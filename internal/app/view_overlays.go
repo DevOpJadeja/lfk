@@ -313,6 +313,9 @@ func (m Model) renderOverlayContentExtended() (string, int, int, bool) {
 	case overlayClusterColor:
 		c, w, h := m.renderOverlayClusterColor()
 		return c, w, h, true
+	case overlayContextPicker:
+		c, w, h := m.renderOverlayContextPicker()
+		return c, w, h, true
 	}
 	return m.renderOverlayContentLater()
 }

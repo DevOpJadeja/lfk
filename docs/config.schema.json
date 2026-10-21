@@ -521,6 +521,7 @@
         "session_manager": { "type": "string" },
         "constraints": { "type": "string" },
         "namespace_selector": { "type": "string" },
+        "context_picker": { "type": "string" },
         "all_namespaces": { "type": "string" },
         "action_menu": { "type": "string" },
         "logs": { "type": "string" },

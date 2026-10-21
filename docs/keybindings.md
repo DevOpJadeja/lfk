@@ -187,6 +187,7 @@ Terminal pods (Succeeded/Failed) older than 1h are still flagged but the reason 
 | `N` | Jump to previous search match | `prev_match` |
 | `Esc` | Clear filter / cancel search | |
 | `\` | Open namespace selector (then `.` to filter to current item's namespace) | `namespace_selector` |
+| `\|` | Open the context picker: filterable list of kube contexts, `Enter` switches to the highlighted one (disabled in union view) | `context_picker` |
 | `A` | Toggle all-namespaces mode (also works inside the namespace selector — clears individual selections and enables all-ns) | `all_namespaces` |
 | `g\` | Jump to previous namespace (swaps the scope back and forth) | `previous_namespace` |
 
@@ -1456,6 +1457,7 @@ keybindings:
   # Actions
   action_menu: "x"       # Action menu
   namespace_selector: "\\" # Namespace selector
+  context_picker: "|"    # Context picker
   all_namespaces: "A"    # Toggle all-namespaces
   toggle_preview_logs: "L"  # Toggle live-log preview pane (deeper levels only)
   logs: "ctrl+l"         # Open fullscreen log viewer

@@ -633,6 +633,7 @@ var whichKeyExplorerActionList = []whichKeyAction{
 	{Key: func(kb ui.Keybindings) string { return kb.Search }, Label: "Search and jump", Group: wkFilter, Avail: wkNotFullscreenDashboard},
 	{Key: func(kb ui.Keybindings) string { return kb.FilterPresets }, Label: "Filter presets", Group: wkFilter, Avail: wkLevelResourcesUp},
 	{Key: func(kb ui.Keybindings) string { return kb.NamespaceSelector }, Label: "Namespace selector", Group: wkFilter, Avail: wkNotAtClusters},
+	{Key: func(kb ui.Keybindings) string { return kb.ContextPicker }, Label: "Context picker", Group: wkFilter, Avail: func(c *wkCtx) bool { return !c.m.unionMode }},
 	{Key: func(kb ui.Keybindings) string { return kb.AllNamespaces }, Label: "All namespaces", Group: wkFilter, Avail: wkAllNamespacesAvailable},
 	{Key: func(kb ui.Keybindings) string { return kb.PreviousNamespace }, Label: "Previous namespace", Group: wkFilter, Avail: wkPreviousNamespaceAvailable},
 	{Key: func(kb ui.Keybindings) string { return kb.CommandBar }, Label: "Command bar", Group: wkFilter},

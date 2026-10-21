@@ -91,6 +91,7 @@ type Keybindings struct {
 
 	// Actions
 	NamespaceSelector string `json:"namespace_selector" yaml:"namespace_selector"`
+	ContextPicker     string `json:"context_picker" yaml:"context_picker"`
 	AllNamespaces     string `json:"all_namespaces" yaml:"all_namespaces"`
 	ActionMenu        string `json:"action_menu" yaml:"action_menu"`
 	Logs              string `json:"logs" yaml:"logs"`
@@ -261,7 +262,8 @@ func DefaultKeybindings() Keybindings {
 		Constraints:       "b",
 
 		// Actions
-		NamespaceSelector: "\\", AllNamespaces: "A", ActionMenu: "x",
+		// ContextPicker "|" (shift+\) mirrors the "\" namespace selector.
+		NamespaceSelector: "\\", ContextPicker: "|", AllNamespaces: "A", ActionMenu: "x",
 		Logs: "ctrl+l", LabelEditor: "i", SecretEditor: "e",
 		CreateTemplate: "a", Refresh: "R",
 		Edit: "E", Describe: "v", Delete: "D",

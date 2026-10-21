@@ -63,7 +63,7 @@ Prefer a local copy? Point `$schema` at a relative or absolute path instead of t
 | `metrics_sparkline_interval` | string | `30s` | Minimum gap between two Prometheus range fetches on a watch-tick refresh. Go duration, clamped to [10s, 10m]. |
 | `watch_throttle` | bool | `true` | Master switch for focus/idle watch throttling. Set `false` to disable it entirely; the watch tick then always uses `watch_interval`. |
 | `all_namespaces` | bool | `true` | Startup namespace scope: `true` shows all namespaces, `false` scopes to the context's default namespace. Unset, a kubeconfig context that pins a namespace scopes to it instead. The `--namespace` CLI flag and per-bookmark/session scope override this. |
-| `remember_namespaces` | bool | `false` | Restore the last namespace scope per context. `--namespace`, bookmarks and session restore win. It wins over a pinned namespace and `all_namespaces`. |
+| `remember_namespaces` | bool | `false` | Restore the last namespace scope per context. `--namespace`, bookmarks and session restore win. It wins over a pinned namespace and `all_namespaces`, and over the scope `:ctx` and the context picker otherwise carry over. |
 | `events` | object | *(see Events section)* | Events view startup-toggle defaults. See [Events](#events). |
 | `log_tail_lines` | int | `100` | **Deprecated** — use `log_viewer.tail_lines`. Number of log lines to load initially via `--tail`. |
 | `log_tail_lines_short` | int | `10` | **Deprecated** — use `log_viewer.tail_lines_short`. Number of log lines loaded by the action menu "Tail Logs" entry. Non-positive values are ignored. |
@@ -576,6 +576,7 @@ The fullscreen viewers (YAML, diff, describe, log, events) honor the shared `sea
 | `secret_editor` | `e` | Secret/ConfigMap editor |
 | `column_toggle` | `,` | Column visibility toggle |
 | `session_manager` | `C` | Open the session manager (save/switch/delete named workspace sessions). |
+| `context_picker` | `\|` | Open the context picker (filterable list of kube contexts; disabled in union view). |
 | `toggle_wrap` | `>` | Toggle line wrapping in the YAML, diff, describe, log, and event viewers. |
 | `toggle_line_numbers` | `#` | Toggle line numbers (diff, log viewers). |
 | `toggle_fold` | `z` | Toggle fold on the section/region under the cursor (YAML, diff viewers). |

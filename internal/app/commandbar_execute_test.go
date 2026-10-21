@@ -477,7 +477,9 @@ func TestExecuteBuiltinCommand(t *testing.T) {
 	})
 
 	t.Run("context_sets_context", func(t *testing.T) {
+		t.Setenv("XDG_STATE_HOME", t.TempDir())
 		m := baseModelWithFakeClient()
+		m.client.AddTestContext("my-cluster", "https://my-cluster.example.local:6443")
 		result, _ := m.executeBuiltinCommand("ctx my-cluster")
 		rm := result.(Model)
 		assert.Equal(t, "my-cluster", rm.nav.Context)

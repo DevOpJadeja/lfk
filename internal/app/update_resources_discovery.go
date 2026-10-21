@@ -25,6 +25,9 @@ func (m Model) updateAPIResourceDiscovery(msg apiResourceDiscoveryMsg) (Model, t
 	if msg.err != nil {
 		authCmd := m.maybeExecAuth(msg.context, msg.err)
 		mdl, cmd := m.handleAPIResourceDiscoveryError(msg, isCurrentContext)
+		if replayed, replayCmd, handled := mdl.replayContextSwitchAfterDiscovery(msg.context); handled {
+			return replayed, tea.Batch(cmd, authCmd, replayCmd)
+		}
 		return mdl, tea.Batch(cmd, authCmd)
 	}
 	// Prepend LFK pseudo-resources (helm releases, port forwards) so they
@@ -102,6 +105,11 @@ func (m Model) updateAPIResourceDiscovery(msg apiResourceDiscoveryMsg) (Model, t
 				}
 			}
 		}
+	}
+	if mdl, cmd, handled := m.replayContextSwitchAfterDiscovery(msg.context); handled {
+		return mdl, cmd
+	} else {
+		m = mdl
 	}
 	if mdl, cmd, handled := m.replayBookmarkAfterDiscovery(msg.context); handled {
 		return mdl, tea.Batch(cmd, barCmd)

@@ -328,6 +328,7 @@ Inside the namespace selector:
 | `g` + key | Goto resource type (press `g` to open the goto menu) |
 | `m<slot>` / `'<slot>` | Set / jump to bookmark (lowercase context-aware, uppercase context-free) |
 | `\` / `A` | Namespace selector / toggle all-namespaces |
+| `\|` | Context picker (switch kube context) |
 | `g\` | Previous namespace |
 
 ### Resource type list

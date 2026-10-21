@@ -471,6 +471,7 @@ keybindings:
   cluster_color_picker: "L" # Open cluster-color picker (default: Shift+L; shares "L" with toggle_preview_logs, gated by level — at the cluster picker "L" opens this, at deeper levels it toggles the live-log preview)
   security_ignore_toggle: "i" # Show/hide ignored security findings (default: i; security view only — shadows the Label Editor there)
   session_manager: "C" # Open the session manager overlay: save/switch/delete named workspace sessions (default: C)
+  context_picker: "|" # Open the context picker: filterable list of kube contexts (default: | = shift+\; disabled in union view)
   security_badge_toggle: "B" # Show/hide the per-resource SEC severity badge (default: B)
   move_tab_left: "{" # Move the current tab one slot left (default: { = shift+[)
   move_tab_right: "}" # Move the current tab one slot right (default: } = shift+])

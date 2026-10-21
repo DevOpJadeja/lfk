@@ -101,6 +101,7 @@ func explorerHelpSections(kb Keybindings) []helpSection {
 				{kb.FilterPresets, "Quick filter presets"},
 				{"Up/Down", "Recall previous query (in filter or search)"},
 				{kb.NamespaceSelector, "Select namespace"},
+				{kb.ContextPicker, "Switch kube context"},
 				{kb.AllNamespaces, "Toggle all-namespaces mode"},
 				{kb.PreviousNamespace, "Jump to previous namespace"},
 			},

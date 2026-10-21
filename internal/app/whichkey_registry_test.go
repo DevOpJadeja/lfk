@@ -714,6 +714,7 @@ func wkLevelScopingCases() []wkLevelScopingCase {
 		{"Search and jump", "", "", allLevels},
 		{"Filter presets", "", "", []model.Level{model.LevelResources, model.LevelOwned, model.LevelContainers}},
 		{"Namespace selector", "", "", []model.Level{model.LevelResourceTypes, model.LevelResources, model.LevelOwned, model.LevelContainers}},
+		{"Context picker", "", "", allLevels},
 		{"All namespaces", "", "", []model.Level{model.LevelResourceTypes, model.LevelResources, model.LevelOwned, model.LevelContainers}},
 		{"Command bar", "", "", allLevels},
 
