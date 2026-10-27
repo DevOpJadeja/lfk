@@ -636,6 +636,7 @@ var whichKeyExplorerActionList = []whichKeyAction{
 	{Key: func(kb ui.Keybindings) string { return kb.ContextPicker }, Label: "Context picker", Group: wkFilter, Avail: func(c *wkCtx) bool { return !c.m.unionMode }},
 	{Key: func(kb ui.Keybindings) string { return kb.AllNamespaces }, Label: "All namespaces", Group: wkFilter, Avail: wkAllNamespacesAvailable},
 	{Key: func(kb ui.Keybindings) string { return kb.PreviousNamespace }, Label: "Previous namespace", Group: wkFilter, Avail: wkPreviousNamespaceAvailable},
+	{Key: func(kb ui.Keybindings) string { return kb.WrapNamespace }, Label: "Wrap to row namespace", Group: wkFilter, Avail: wkWrapNamespaceAvailable},
 	{Key: func(kb ui.Keybindings) string { return kb.CommandBar }, Label: "Command bar", Group: wkFilter},
 
 	// Sort. SortPrev/SortNext/SortFlip carry an explicit Order (USER DECISION:

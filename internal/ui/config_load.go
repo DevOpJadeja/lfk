@@ -456,7 +456,7 @@ type DescribeViewerConfig struct {
 // ObjectExplorerConfig is the on-disk schema for the object_explorer section.
 type ObjectExplorerConfig struct {
 	// Live: startup default for live-refreshing the browsed object as the
-	// resource changes under watch mode (runtime toggle: w). Default true.
+	// resource changes under watch mode (runtime toggle: keybindings.watch_mode, unbound by default). Default true.
 	Live *bool `json:"live" yaml:"live"`
 	// Tree: startup default for the ASCII-art tree view (runtime toggle: T).
 	// Default false (flat Miller-columns level list).

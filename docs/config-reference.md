@@ -241,7 +241,7 @@ api_explorer:
 | `diff_viewer.line_numbers` | bool | `true` | `toggle_line_numbers` (`#`) | Gutter line numbers in the diff viewer. |
 | `diff_viewer.unified` | bool | `false` | `toggle_unified` (`u`) | Unified (vs side-by-side) diff layout. |
 | `describe_viewer.wrap` | bool | `false` | `toggle_wrap` (`>`) | Line wrapping in the describe viewer. |
-| `object_explorer.live` | bool | `true` | `watch_mode` (`w`) | Live-refresh the browsed object as the resource changes under watch mode. Manual refresh with `refresh` (`R`). |
+| `object_explorer.live` | bool | `true` | `watch_mode` (unbound) | Live-refresh the browsed object as the resource changes under watch mode. Manual refresh with `refresh` (`R`). |
 | `object_explorer.tree` | bool | `false` | `tree_view` (`T`) | Open the Object Explorer in the ASCII-art tree view. |
 | `api_explorer.tree` | bool | `false` | `tree_view` (`T`) | Open the API Explorer in the ASCII-art tree view (sticky across navigation). |
 

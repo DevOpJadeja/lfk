@@ -18,12 +18,12 @@ type HintEntry struct {
 // This returns the joined content without the StatusBarBgStyle wrapper, useful
 // when callers need to append extra content (e.g. scroll info) before wrapping.
 func FormatHintParts(hints []HintEntry) string {
-	if len(hints) == 0 {
-		return ""
-	}
-	parts := make([]string, len(hints))
-	for i, h := range hints {
-		parts[i] = HelpKeyStyle.Render(h.Key) + BarDimStyle.Render(": "+h.Desc)
+	parts := make([]string, 0, len(hints))
+	for _, h := range hints {
+		if h.Key == "" {
+			continue // unbound action: nothing to press
+		}
+		parts = append(parts, HelpKeyStyle.Render(h.Key)+BarDimStyle.Render(": "+h.Desc))
 	}
 	return strings.Join(parts, BarDimStyle.Render(" | "))
 }
@@ -48,6 +48,9 @@ func FormatHintPartsFit(hints []HintEntry, maxWidth int) string {
 	used := 0
 	first := true
 	for _, h := range hints {
+		if h.Key == "" {
+			continue // unbound action: nothing to press
+		}
 		entry := HelpKeyStyle.Render(h.Key) + BarDimStyle.Render(": "+h.Desc)
 		entryW := lipgloss.Width(entry)
 		add := entryW

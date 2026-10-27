@@ -346,6 +346,7 @@ func TestWhichKeyObjectExplorer_FoldNeedsAnUnfilteredTreeRowWithChildren(t *test
 func TestWhichKeyObjectExplorer_LiveRefreshLabelFollowsTheState(t *testing.T) {
 	restoreWhichKeyGlobals(t)
 	ui.ActiveKeybindings = ui.DefaultKeybindings()
+	ui.ActiveKeybindings.WatchMode = "V" // ships unbound; bind it to see the entry
 
 	// The test model carries the production default (live on, seeded from
 	// ui.ConfigObjectExplorerLive), so this direction comes first.

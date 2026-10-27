@@ -296,6 +296,12 @@ func TestBuildHelpLines_ReturnsPlainText(t *testing.T) {
 // screen was reworked to remove. Long explanations live in
 // docs/keybindings.md instead.
 func TestHelpSections_EveryEntryHasAKey(t *testing.T) {
+	// Actions that ship unbound (WatchMode) are hidden by collectHelpGroups,
+	// so bind them here to check the catalog itself has no prose-only rows.
+	prev := ActiveKeybindings
+	t.Cleanup(func() { ActiveKeybindings = prev })
+	ActiveKeybindings = DefaultKeybindings()
+	ActiveKeybindings.WatchMode = "V"
 	for _, section := range helpSections() {
 		for i, b := range section.bindings {
 			assert.NotEmptyf(t, strings.TrimSpace(b.key),
@@ -986,4 +992,15 @@ func TestHelpVisibleLines_MatchesTheRenderedBox(t *testing.T) {
 		assert.Equalf(t, HelpVisibleLines(h)+helpBoxChromeH+helpBoxFrame, gotH,
 			"visible-line budget and rendered height disagree at height %d", h)
 	}
+}
+
+// The default WatchMode binding is empty, so its help row must be hidden
+// rather than drawn with a blank key column.
+func TestHelpHidesUnboundBindings(t *testing.T) {
+	if ActiveKeybindings.WatchMode != "" {
+		t.Fatalf("precondition: watch mode ships unbound, got %q", ActiveKeybindings.WatchMode)
+	}
+	plain := stripANSI(strings.Join(BuildHelpLines("", "", 120), "\n"))
+	assert.NotContains(t, plain, "Toggle watch mode")
+	assert.Contains(t, plain, "Wrap to the focused resource's namespace")
 }

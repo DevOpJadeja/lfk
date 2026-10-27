@@ -265,7 +265,8 @@ Cloudsmith is a hosted package management service that stores and serves package
 - CPU and memory bars on the Cluster Dashboard: [features.md](docs/features.md#resource-usage-metrics)
 - Node uptime column: [config-reference.md](docs/config-reference.md#node-uptime-column)
 - Namespace resource quota dashboard with `Q`
-- Watch mode auto-refresh with `w`: [usage.md](docs/usage.md#watch-mode-interval)
+- Watch mode auto-refresh (on by default; toggle key unbound, set `keybindings.watch_mode`): [usage.md](docs/usage.md#watch-mode-interval)
+- Wrap to the focused resource's namespace with `w` (k9s-style); `g\` returns
 - CPU and MEM sparklines from Prometheus history with `~`: [keybindings.md](docs/keybindings.md#modes-and-settings)
 - Random startup tips: [config-reference.md](docs/config-reference.md#top-level-fields)
 
@@ -330,6 +331,7 @@ Inside the namespace selector:
 | `\` / `A` | Namespace selector / toggle all-namespaces |
 | `\|` | Context picker (switch kube context) |
 | `g\` | Previous namespace |
+| `w` | Wrap to the focused resource's namespace |
 
 ### Resource type list
 
@@ -382,7 +384,6 @@ Inside the namespace selector:
 | `:` | Command bar (resource jumps, built-ins, kubectl, shell) |
 | `T` | Theme selector |
 | `@` / `Q` | Cluster or monitoring dashboard / namespace quotas |
-| `w` | Watch mode (auto-refresh) |
 | `Ctrl+T` | Cycle terminal mode (pty / exec / mux) |
 | `Ctrl+R` | Read-only mode |
 | `!` | Error log |

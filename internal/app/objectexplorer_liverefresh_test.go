@@ -135,7 +135,7 @@ func TestObjectExplorer_PausedIgnoresRefresh(t *testing.T) {
 	m = pressTree(m, key("l"))
 
 	// Pause live refresh (w).
-	mdl, _ := m.handleObjectExplorerKey(key("w"))
+	mdl, _ := m.handleObjectExplorerKey(key(bindWatchModeForTest(t).WatchMode))
 	m = mdl.(Model)
 	require.False(t, m.objectExplorerLive)
 
@@ -187,7 +187,7 @@ func TestObjectExplorer_ToggleLiveBackOn(t *testing.T) {
 	m = result.(Model)
 	m.objectExplorerLive = false
 
-	mdl, cmd := m.handleObjectExplorerKey(key("w"))
+	mdl, cmd := m.handleObjectExplorerKey(key(bindWatchModeForTest(t).WatchMode))
 	m = mdl.(Model)
 	assert.True(t, m.objectExplorerLive)
 	assert.True(t, m.objectExplorerForceSync, "turning live on requests an immediate catch-up sync")

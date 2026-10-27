@@ -104,6 +104,7 @@ func explorerHelpSections(kb Keybindings) []helpSection {
 				{kb.ContextPicker, "Switch kube context"},
 				{kb.AllNamespaces, "Toggle all-namespaces mode"},
 				{kb.PreviousNamespace, "Jump to previous namespace"},
+				{kb.WrapNamespace, "Wrap to the focused resource's namespace"},
 			},
 		},
 		{

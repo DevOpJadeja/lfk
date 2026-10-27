@@ -504,6 +504,7 @@
         "theme_selector": { "type": "string" },
         "command_bar": { "type": "string" },
         "watch_mode": { "type": "string" },
+        "wrap_namespace": { "type": "string" },
         "sort_next": { "type": "string" },
         "sort_prev": { "type": "string" },
         "sort_flip": { "type": "string" },

@@ -622,6 +622,7 @@ func wkLevelScopingExclusions() map[string]string {
 		"Move tab left":          "needs len(m.tabs) > 1, not level-dependent alone",
 		"Move tab right":         "needs len(m.tabs) > 1, not level-dependent alone",
 		"Previous namespace":     "needs a recorded previous scope and single-namespace mode, not level-dependent alone",
+		"Wrap to row namespace":  "needs a row with a namespace, not level-dependent alone",
 		"Jump to owner":          "needs a parseable owner: column, not level-dependent alone",
 		"Jump to resource claim": "needs a claim: column, not level-dependent alone",
 	}
@@ -723,7 +724,9 @@ func wkLevelScopingCases() []wkLevelScopingCase {
 		{"Flip sort direction", "", "", []model.Level{model.LevelResources, model.LevelOwned, model.LevelContainers}},
 		{"Reset sort", "", "", []model.Level{model.LevelResources, model.LevelOwned, model.LevelContainers}},
 
-		{"Watch mode", "", "", allLevels},
+		// Ships unbound (w went to WrapNamespace), so it is never offered
+		// until the user binds it.
+		{"Watch mode", "", "", nil},
 		{"Read-only mode", "", "", allLevels},
 		{"Color scheme", "", "", allLevels},
 		{"Terminal mode", "", "", allLevels},

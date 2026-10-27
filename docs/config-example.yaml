@@ -248,7 +248,7 @@ log_path: /tmp/lfk.log
 # describe_viewer:
 #   wrap: false
 # object_explorer:
-#   live: true   # live-refresh the browsed object under watch mode (toggle: w)
+#   live: true   # live-refresh the browsed object under watch mode (toggle: keybindings.watch_mode, unbound by default)
 #   tree: false  # open in the ASCII-art tree view (toggle: T)
 # api_explorer:
 #   tree: false  # open in the ASCII-art tree view (toggle: T)
@@ -478,6 +478,8 @@ keybindings:
   which_key_leader: "?" # Search keymaps overlay (default: ?; explorer and the fullscreen viewers, not exec mode or overlays; F1 opens help there)
   select_range: "ctrl+space" # Select range from anchor to cursor (default: ctrl+space; legacy "ctrl+@" still accepted)
   previous_namespace: "g\\" # Jump to previous namespace, swapping the scope back and forth (default: g\)
+  wrap_namespace: "w" # Narrow the scope to the focused resource's namespace; g\ returns (default: w)
+  # watch_mode: "V" # Toggle watch mode / Object Explorer live refresh (default: unbound; "w" is wrap_namespace)
 
 # ─── Search Abbreviations ─────────────────────────────────────────────────────
 # Short names for resource types used in search/filter.
@@ -717,7 +719,7 @@ confirm_on_exit: true
 # scrollback_lines: 5000
 
 # ─── Watch Interval ───────────────────────────────────────────────────────────
-# Polling interval used when watch mode is active (press 'w' to toggle).
+# Polling interval used when watch mode is active (toggle key: keybindings.watch_mode, unbound by default).
 # Accepts any Go duration string: "500ms", "2s", "5s", "1m".
 # Clamped to [500ms, 10m] — values outside the range are pinned to the bounds.
 # Invalid values fall back to the default (2s).

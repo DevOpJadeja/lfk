@@ -410,7 +410,7 @@ cluster's identity.
 
 ## Watch-mode interval
 
-Watch mode (toggle with `w`) polls the current resource list on an interval.
+Watch mode (on by default; the toggle key is unbound, set `keybindings.watch_mode` to bind one) polls the current resource list on an interval.
 The default 2-second interval is a good balance between freshness and API
 load. Tune it with:
 
