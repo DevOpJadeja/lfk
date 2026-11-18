@@ -66,6 +66,7 @@ type Keybindings struct {
 	ThemeSelector     string `json:"theme_selector" yaml:"theme_selector"`
 	CommandBar        string `json:"command_bar" yaml:"command_bar"`
 	WatchMode         string `json:"watch_mode" yaml:"watch_mode"`
+	WrapNamespace     string `json:"wrap_namespace" yaml:"wrap_namespace"`
 	SortNext          string `json:"sort_next" yaml:"sort_next"`
 	SortPrev          string `json:"sort_prev" yaml:"sort_prev"`
 	SortFlip          string `json:"sort_flip" yaml:"sort_flip"`
@@ -91,6 +92,7 @@ type Keybindings struct {
 
 	// Actions
 	NamespaceSelector string `json:"namespace_selector" yaml:"namespace_selector"`
+	ContextPicker     string `json:"context_picker" yaml:"context_picker"`
 	AllNamespaces     string `json:"all_namespaces" yaml:"all_namespaces"`
 	ActionMenu        string `json:"action_menu" yaml:"action_menu"`
 	Logs              string `json:"logs" yaml:"logs"`
@@ -249,7 +251,11 @@ func DefaultKeybindings() Keybindings {
 		// "T" is also the explorer-level ThemeSelector. TreeView only dispatches
 		// inside the Object/API Explorer modes, which have their own handlers.
 		TreeView:      "T",
-		ThemeSelector: "T", CommandBar: ":", WatchMode: "w",
+		ThemeSelector: "T", CommandBar: ":",
+		// WatchMode ships unbound: "w" went to WrapNamespace (k9s parity).
+		// Watch mode still starts from the watch_mode config default and can
+		// be rebound under keybindings.watch_mode.
+		WatchMode: "", WrapNamespace: "w",
 		SortNext: ">", SortPrev: "<", SortFlip: "=", SortReset: "-",
 		SaveResource: "W", Monitoring: "@",
 		QuotaDashboard: "Q", TasksOverlay: "`",
@@ -261,7 +267,8 @@ func DefaultKeybindings() Keybindings {
 		Constraints:       "b",
 
 		// Actions
-		NamespaceSelector: "\\", AllNamespaces: "A", ActionMenu: "x",
+		// ContextPicker "|" (shift+\) mirrors the "\" namespace selector.
+		NamespaceSelector: "\\", ContextPicker: "|", AllNamespaces: "A", ActionMenu: "x",
 		Logs: "ctrl+l", LabelEditor: "i", SecretEditor: "e",
 		CreateTemplate: "a", Refresh: "R",
 		Edit: "E", Describe: "v", Delete: "D",

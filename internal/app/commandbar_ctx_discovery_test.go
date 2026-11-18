@@ -13,6 +13,8 @@ import (
 // discovery cache already knows that "argo" serves Argo CD Applications.
 func ctxSwitchModel() Model {
 	m := basePush80Model()
+	m.client.AddTestContextWithNamespace("plain", "https://plain.example.local:6443", "default")
+	m.client.AddTestContextWithNamespace("argo", "https://argo.example.local:6443", "default")
 	m.nav.Context = "plain"
 	m.allGroupsExpanded = true // production default (app_init)
 	m.leftItems = model.BuildSidebarItems(model.SeedResources())

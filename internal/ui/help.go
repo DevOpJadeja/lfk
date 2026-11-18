@@ -238,6 +238,9 @@ func collectHelpGroups(filter, contextMode string) []helpGroup {
 		}
 		rows := make([]helpKeyRow, 0, len(section.bindings))
 		for _, b := range section.bindings {
+			if b.key == "" {
+				continue // unbound action: nothing to press
+			}
 			row := helpKeyRow{
 				key:     helpKeySymbols(b.key),
 				keyText: helpKeyDisplay(b.key),

@@ -113,6 +113,7 @@ const (
 	overlayExportStrip        // field-category picker over the Export Template destinations (s key)
 	overlayPodResize          // in-place Pod CPU/memory resize (action menu key r on a Pod)
 	overlayKeymaps            // searchable keymaps overlay (which-key leader key)
+	overlayContextPicker      // filterable kube-context picker (context_picker key)
 )
 
 // whoCanState groups the reverse-RBAC ("Who-Can") fields so they live

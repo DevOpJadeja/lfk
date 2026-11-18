@@ -125,6 +125,8 @@ func (m Model) overlayHintBarDialog() string {
 // overlayHintBarSelector handles list/selector overlays.
 func (m Model) overlayHintBarSelector() string {
 	switch m.overlay {
+	case overlayContextPicker:
+		return m.overlayHintBarContextPicker()
 	case overlayNamespace:
 		if m.nsFilterMode {
 			return m.renderHints([]ui.HintEntry{

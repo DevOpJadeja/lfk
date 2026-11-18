@@ -322,8 +322,8 @@ func (m Model) executeBuiltinCommand(input string) (tea.Model, tea.Cmd) {
 }
 
 // executeContextCommand handles the :ctx builtin: switches the active
-// kube context, refreshes the read-only state and resource types, and
-// warms the namespace cache. Disabled in union view.
+// kube context while keeping the current resource type, row and namespace
+// scope (see switchContextKeepingView). Disabled in union view.
 func (m Model) executeContextCommand(arg string) (tea.Model, tea.Cmd) {
 	if m.unionMode {
 		m.setStatusMessage(":ctx is disabled in union view", true)
@@ -333,36 +333,7 @@ func (m Model) executeContextCommand(arg string) (tea.Model, tea.Cmd) {
 		m.setStatusMessage("Usage: :ctx <context>", true)
 		return m, scheduleStatusClear()
 	}
-	oldCtx := m.nav.Context
-	m.rememberScope(oldCtx)
-	m.nav.Context = arg
-	m.invalidateOrphanCacheForContext(oldCtx)
-	m.recomputeReadOnly(arg)
-	m.rescopeNamespaceForContext(arg)
-	m.setStatusMessage(fmt.Sprintf("Context set to %s", arg), false)
-	// At the resource-list level the left column holds the resource types for
-	// the context we just left. Rebuild it from the destination's discovery
-	// snapshot now so backing out to the resource-type screen shows that
-	// cluster's CRDs instead of the previous one's list.
-	if m.nav.Level == model.LevelResources {
-		m.leftItems = m.resourceTypeItems()
-	}
-	cmds := []tea.Cmd{m.loadResourceTypes(), scheduleStatusClear()}
-	// Refresh discovery for the destination context. Without this, a context
-	// opened through :ctx keeps whatever snapshot the previous context had
-	// until the user backs out to (or re-enters) the resource-type screen, so
-	// CRDs that exist only in the destination were missing from command-bar
-	// completion. shouldFireDiscoveryFor deduplicates against an in-flight
-	// request and skips contexts already refreshed this session, where the
-	// cached discoveredResources entry is current.
-	if m.shouldFireDiscoveryFor(arg) {
-		m.markDiscoveryStarted(arg)
-		cmds = append(cmds, m.discoverAPIResources(arg))
-	}
-	if cmd := m.ensureNamespaceCacheFresh(); cmd != nil {
-		cmds = append(cmds, cmd)
-	}
-	return m, tea.Batch(cmds...)
+	return m.switchContextKeepingView(arg)
 }
 
 func (m Model) executeNamespaceCommand(namespaces []string) (tea.Model, tea.Cmd) {

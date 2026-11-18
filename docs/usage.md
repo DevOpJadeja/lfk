@@ -408,9 +408,17 @@ bright codes so they look the same regardless of which lfk theme is
 active — useful when none of the theme accent colors fit a particular
 cluster's identity.
 
+## Terminal window title
+
+lfk sets the terminal window (or tab) title to the active context, e.g.
+`lfk - prod-eu`. It follows context switches, tab switches, and union
+view (`lfk - [dev+qa]`), and shows plain `lfk` on the cluster list. The
+title is cleared on exit. Terminals that ignore the OSC title sequence
+(and tmux without `set-titles on`) keep their own title.
+
 ## Watch-mode interval
 
-Watch mode (toggle with `w`) polls the current resource list on an interval.
+Watch mode (on by default; the toggle key is unbound, set `keybindings.watch_mode` to bind one) polls the current resource list on an interval.
 The default 2-second interval is a good balance between freshness and API
 load. Tune it with:
 

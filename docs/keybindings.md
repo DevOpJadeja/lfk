@@ -115,7 +115,7 @@ Your chosen sort is remembered per resource kind and per cluster context, and pe
 
 | Key | Action |
 |---|---|
-| `w` | Toggle watch mode (auto-refresh every 2s) |
+| (unbound) | Toggle watch mode (auto-refresh every 2s). On by default via the `watch_mode` setting; bind a key under `keybindings.watch_mode` to toggle it |
 | `Ctrl+R` | Toggle read-only mode (cluster picker: highlighted row's [RO] marker; inside a context: current tab) |
 | `T` | Switch color scheme (live preview, not persisted) |
 | `Ctrl+T` | Cycle terminal mode (pty/exec/mux — mux skipped without tmux/zellij) |
@@ -187,8 +187,10 @@ Terminal pods (Succeeded/Failed) older than 1h are still flagged but the reason 
 | `N` | Jump to previous search match | `prev_match` |
 | `Esc` | Clear filter / cancel search | |
 | `\` | Open namespace selector (then `.` to filter to current item's namespace) | `namespace_selector` |
+| `\|` | Open the context picker: filterable list of kube contexts, `Enter` switches to the highlighted one (disabled in union view) | `context_picker` |
 | `A` | Toggle all-namespaces mode (also works inside the namespace selector — clears individual selections and enables all-ns) | `all_namespaces` |
 | `g\` | Jump to previous namespace (swaps the scope back and forth) | `previous_namespace` |
+| `w` | Wrap: narrow the scope to the focused resource's namespace (e.g. on a pod in `k8ssandra`, list every pod in `k8ssandra`). `g\` returns to the previous scope | `wrap_namespace` |
 
 Each list remembers its `f` filter per tab: drilling into a resource (logs, containers, owned objects) and navigating back keeps the filter applied. A different list starts unfiltered; press `Esc` to clear a list's filter.
 
@@ -485,7 +487,7 @@ The top breadcrumb shows the resource name and the attribute path under the curs
 | `T` | Toggle tree view — expand the whole subtree with ASCII-art guides (configurable via `tree_view`) |
 | `Space` / `z` | Fold / unfold the subtree under the cursor (tree view; `z` configurable via `toggle_fold`) |
 | `R` | Manually refresh the browsed object now (configurable via `refresh`) |
-| `w` | Toggle live refresh on / off — title shows `[PAUSED]` when off (configurable via `watch_mode`) |
+| (unbound) | Toggle live refresh on / off — title shows `[PAUSED]` when off (bind via `watch_mode`) |
 | `y` / `Y` | Yank the selected node's path / full YAML |
 | `P` | Open the whole resource in the full YAML viewer |
 | `I` | Open the API Explorer at the selected item's schema |
@@ -1433,7 +1435,8 @@ keybindings:
   toggle_preview: "P"    # Toggle YAML preview
   resource_map: "M"      # Resource map
   fullscreen: "F"        # Cycle layout: hide sidebar / fullscreen / restore
-  watch_mode: "w"        # Watch mode
+  watch_mode: "V"        # Watch mode toggle (unbound by default)
+  wrap_namespace: "w"    # Wrap to the focused resource's namespace
   command_bar: ":"        # Command bar
   theme_selector: "T"    # Theme selector
   finalizer_search: "ctrl+g"  # Finalizer search
@@ -1456,6 +1459,7 @@ keybindings:
   # Actions
   action_menu: "x"       # Action menu
   namespace_selector: "\\" # Namespace selector
+  context_picker: "|"    # Context picker
   all_namespaces: "A"    # Toggle all-namespaces
   toggle_preview_logs: "L"  # Toggle live-log preview pane (deeper levels only)
   logs: "ctrl+l"         # Open fullscreen log viewer

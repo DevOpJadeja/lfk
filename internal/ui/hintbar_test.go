@@ -251,3 +251,17 @@ func TestJoinStatusBar(t *testing.T) {
 			"chips must remain at the right edge in full; got %q", out)
 	})
 }
+
+// An unbound action (empty key, e.g. the default watch_mode binding) has
+// nothing to press, so it must not render as an orphan ": desc" chip.
+func TestFormatHintsSkipUnboundKeys(t *testing.T) {
+	hints := []HintEntry{{Key: "a", Desc: "one"}, {Key: "", Desc: "unbound"}, {Key: "b", Desc: "two"}}
+	for name, out := range map[string]string{
+		"parts": FormatHintParts(hints),
+		"fit":   FormatHintPartsFit(hints, 200),
+	} {
+		plain := stripANSI(out)
+		assert.NotContains(t, plain, "unbound", name)
+		assert.Equal(t, "a: one | b: two", plain, name)
+	}
+}

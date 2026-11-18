@@ -492,8 +492,8 @@ type Model struct {
 	// sessionResourceNameAwaitingDiscovery is the resource name to land on once
 	// the type-await above resolves. Mirrors pendingTarget but only when deferred.
 	sessionResourceNameAwaitingDiscovery string
-	// pendingSessionList carries the saved filter + cursor through a deferred restore.
-	pendingSessionList pendingSessionListState
+	pendingSessionList                   pendingSessionListState // saved filter + cursor for a deferred restore
+	ctxSwitchState                                               // context picker and `:ctx` keep-view state (context_switch.go)
 
 	// Preview scroll offset for the right column.
 	previewScroll int

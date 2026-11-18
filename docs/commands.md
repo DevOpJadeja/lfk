@@ -14,7 +14,7 @@ Press `:` to open the command bar. Input is classified by the first word:
 | Command | Description |
 |---|---|
 | `:namespace <ns>…` &nbsp;·&nbsp; `:ns <ns>…` | Switch namespace(s). No args opens the Namespaces list |
-| `:context <ctx>` &nbsp;·&nbsp; `:ctx <ctx>` | Switch kube context |
+| `:context <ctx>` &nbsp;·&nbsp; `:ctx <ctx>` | Switch kube context, keeping the current view: the same resource type (and the same-named row when it exists), the list's sort column when the target's rows have it (otherwise the default sort), and the namespace scope when the namespaces exist in the target (otherwise all namespaces; with `remember_namespaces` on, the target's remembered scope is used instead). Falls back to the resource-type list when the type is missing there. `\|` opens the same switch as a picker. |
 | `:sort <column>` | Sort the current list by column name |
 | `:set <option>` | Toggle log viewer option (see below) |
 | `:export [yaml\|json\|kyaml]` | Copy selected resource(s) to clipboard |

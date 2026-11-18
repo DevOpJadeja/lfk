@@ -366,17 +366,18 @@ func TestHandleKeyF1OpensHelp(t *testing.T) {
 	assert.Equal(t, 0, result.helpScroll)
 }
 
-// --- handleKey: w toggles watch ---
+// --- handleKey: the (user-bound) watch key toggles watch ---
 
 func TestHandleKeyWTogglesWatch(t *testing.T) {
+	bindWatchModeForTest(t)
 	m := baseExplorerModel()
 	assert.False(t, m.watchMode)
 
-	ret, _ := m.handleKey(runeKey('w'))
+	ret, _ := m.handleKey(runeKey('V'))
 	result := ret.(Model)
 	assert.True(t, result.watchMode)
 
-	ret, _ = result.handleKey(runeKey('w'))
+	ret, _ = result.handleKey(runeKey('V'))
 	result = ret.(Model)
 	assert.False(t, result.watchMode)
 }
@@ -679,7 +680,7 @@ func TestPush2HandleKeyExplorerModeF(t *testing.T) {
 func TestPush2HandleKeyExplorerModeW(t *testing.T) {
 	m := basePush80v2Model()
 	m.mode = modeExplorer
-	kb := ui.ActiveKeybindings
+	kb := bindWatchModeForTest(t)
 	result, cmd := m.handleKey(keyMsg(kb.WatchMode))
 	rm := result.(Model)
 	assert.True(t, rm.watchMode)
@@ -1402,7 +1403,7 @@ func TestPush4HandleKeyEnter(t *testing.T) {
 func TestPush4HandleKeyToggleWatchMode(t *testing.T) {
 	m := basePush4Model()
 	m.watchMode = true
-	kb := ui.ActiveKeybindings
+	kb := bindWatchModeForTest(t)
 	result, _ := m.handleKey(keyMsg(kb.WatchMode))
 	rm := result.(Model)
 	assert.False(t, rm.watchMode)

@@ -266,7 +266,21 @@ func TestStatusBarResourceTypePickerOmitsActionsAndSort(t *testing.T) {
 	assert.NotContains(t, stripped, "sort:", "sort indicator must hide where sort is a no-op")
 	assert.Contains(t, stripped, "create")
 	assert.Contains(t, stripped, "filter")
-	assert.Contains(t, stripped, "marks")
+	assert.Contains(t, stripped, "|: context")
+	assert.NotContains(t, stripped, "marks", "marks hint gave its slot to the context picker")
+}
+
+func TestStatusBarHidesContextHintInUnionMode(t *testing.T) {
+	m := Model{
+		nav:           model.NavigationState{Level: model.LevelResourceTypes},
+		middleItems:   []model.Item{{Name: "Pod", Extra: "/v1/pods"}},
+		width:         200,
+		height:        40,
+		tabs:          []TabState{{}},
+		selectedItems: make(map[string]bool),
+		unionMode:     true,
+	}
+	assert.NotContains(t, stripANSI(m.statusBar()), "context")
 }
 
 // --- statusBar: cluster-list hints also omit "sort" ---

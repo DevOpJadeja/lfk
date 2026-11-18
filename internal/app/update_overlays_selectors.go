@@ -54,26 +54,33 @@ func (m Model) quickFilterToSelectedNamespace() (tea.Model, tea.Cmd) {
 		m.setStatusMessage("No namespaced resource selected to filter to", true)
 		return m, scheduleStatusClear()
 	}
-	ns := sel.Namespace
-	oldNs := m.namespace
 	// Fired from inside the overlay (chord "\" then "."), so use the
 	// pre-overlay snapshot rather than the possibly Space-edited live scope.
 	beforeScope := m.namespaceOverlayEntryScope()
+	m.overlayFilter.Clear()
+	m.nsFilterMode = false
+	m.overlay = overlayNone
+	refresh := m.narrowToNamespace(sel.Namespace, beforeScope)
+	m.setStatusMessage("Filtered to namespace: "+sel.Namespace, false)
+	return m, tea.Batch(refresh, scheduleStatusClear())
+}
+
+// narrowToNamespace sets the scope to the single namespace ns, records before
+// as the previous scope (so the previous-namespace chord returns to it), and
+// returns the command that reloads the current level.
+func (m *Model) narrowToNamespace(ns string, before nsScope) tea.Cmd {
+	oldNs := m.namespace
 	m.selectedNamespaces = map[string]bool{ns: true}
 	m.namespace = ns
 	m.allNamespaces = false
 	m.nsSelectionNegated = false
 	m.nsSelectionModified = false
-	m.recordPreviousNamespace(beforeScope)
+	m.recordPreviousNamespace(before)
 	m.invalidateOrphanCacheForNamespace(m.nav.Context, oldNs)
-	m.overlayFilter.Clear()
-	m.nsFilterMode = false
-	m.overlay = overlayNone
 	m.saveCurrentSession()
 	m.cancelAndReset()
 	m.requestGen++
-	m.setStatusMessage("Filtered to namespace: "+ns, false)
-	return m, tea.Batch(m.refreshCurrentLevel(), scheduleStatusClear())
+	return m.refreshCurrentLevel()
 }
 
 //nolint:gocyclo // switch-based key dispatch is inherently high-complexity

@@ -47,6 +47,7 @@ func (m Model) handleOverlayKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd) {
 func (m Model) closeCurrentOverlay() (tea.Model, tea.Cmd) {
 	m.nsFilterMode = false
 	m.canISubjectFilterMode = false
+	m.contextPickerFilterMode = false
 	m.templateSearchMode = false
 	m.schemeFilterMode = false
 	m.bookmarkSearchMode = bookmarkModeNormal
@@ -116,6 +117,9 @@ func (m Model) isOverlayToggleKey(key string) bool {
 		return key == kb.CopyField
 	case overlayKeymaps:
 		return key == kb.WhichKeyLeader
+	case overlayContextPicker:
+		// Not while filtering: "|" is regex alternation in the filter.
+		return key == kb.ContextPicker && !m.contextPickerFilterMode
 	}
 	return false
 }
@@ -303,6 +307,9 @@ func (m Model) handleOverlayKeyTertiary(msg tea.KeyPressMsg) (tea.Model, tea.Cmd
 		return mdl, cmd, true
 	case overlayTaintEditor, overlayTaintPresets:
 		mdl, cmd := m.handleTaintOverlayKey(msg)
+		return mdl, cmd, true
+	case overlayContextPicker:
+		mdl, cmd := m.handleContextPickerOverlayKey(msg)
 		return mdl, cmd, true
 	}
 	return m, nil, false

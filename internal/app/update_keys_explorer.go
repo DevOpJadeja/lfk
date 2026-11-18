@@ -357,11 +357,17 @@ func (m Model) handleExplorerUIKey(msg tea.KeyPressMsg) (tea.Model, tea.Cmd, boo
 	case kb.NamespaceSelector:
 		mdl, cmd := m.handleKeyNamespaceSelector()
 		return mdl, cmd, true
+	case kb.ContextPicker:
+		mdl, cmd := m.openContextPicker()
+		return mdl, cmd, true
 	case kb.ActionMenu:
 		mdl := m.openActionMenu()
 		return mdl, nil, true
 	case kb.WatchMode:
 		mdl, cmd := m.handleKeyWatchMode()
+		return mdl, cmd, true
+	case kb.WrapNamespace:
+		mdl, cmd := m.wrapToFocusedNamespace()
 		return mdl, cmd, true
 	case kb.ExpandCollapse:
 		mdl, cmd := m.handleKeyExpandCollapse()

@@ -79,6 +79,9 @@ func TestUpdateAPIResourceDiscovery_KeepsAcceptedSuggestionsClosed(t *testing.T)
 
 func TestUpdateAPIResourceDiscovery_KeepsCycledSelection(t *testing.T) {
 	m := argoCommandBar(t, "co")
+	// The seed fallback the type list shows while hover-discovery runs.
+	m.setMiddleItems(model.BuildSidebarItems(model.SeedResources()))
+	m, _ = m.commandBarRefreshSuggestions()
 	require.Greater(t, m.commandBarActionableSuggestionCount(), 1)
 	got, _ := m.commandBarCycleForward("tab")
 	m = got.(Model)

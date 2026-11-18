@@ -260,6 +260,7 @@ func (m Model) updateResourcesLoadedMain(msg resourcesLoadedMsg) (tea.Model, tea
 	// name in different namespaces). Running sortMiddleItems guarantees
 	// the app-level tiebreaker chain is applied on every load — even the
 	// default Name/ascending case — so watch-mode output is deterministic.
+	m.checkKeptSort()
 	m.sortMiddleItems()
 	m.applyWarningEventsFilter()
 	m.applyEventGrouping()
@@ -508,6 +509,7 @@ func (m Model) updateNamespacesLoaded(msg namespacesLoadedMsg) (tea.Model, tea.C
 		return m, nil
 	}
 	if msg.err != nil {
+		m, _ = m.checkNamespacesAfterContextSwitch(msg)
 		m.err = msg.err
 		m.overlay = overlayNone
 		m.setErrorFromErr("Warning: ", msg.err)
@@ -532,6 +534,12 @@ func (m Model) updateNamespacesLoaded(msg namespacesLoadedMsg) (tea.Model, tea.C
 		items:     msg.items,
 		names:     names,
 		fetchedAt: time.Now(),
+	}
+	m, nsCheckCmd := m.checkNamespacesAfterContextSwitch(msg)
+	if nsCheckCmd != nil {
+		// The carried-over scope changed, so the overlay (if open) must
+		// not be reseeded from a stale selection either.
+		return m, nsCheckCmd
 	}
 	// Silent loads are background cache refreshes (stale-while-revalidate
 	// after an overlay open, session restore, `:ctx` switch). They must
