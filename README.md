@@ -178,6 +178,7 @@ Cloudsmith is a hosted package management service that stores and serves package
 - Local kind, k3d, and minikube clusters with `Ctrl+N`: [keybindings.md](docs/keybindings.md#local-clusters-manager)
 - Named sessions with `C`: [keybindings.md](docs/keybindings.md#named-sessions)
 - Context, namespace, filter, and cursor row restored on start: [config-reference.md](docs/config-reference.md#session-persistence)
+- Terminal window title shows the active context (`lfk - <context>`): [usage.md](docs/usage.md#terminal-window-title)
 
 ### Safety
 

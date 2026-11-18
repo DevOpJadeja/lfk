@@ -74,6 +74,7 @@ func (m Model) View() tea.View {
 	v := tea.NewView(m.renderView())
 	v.AltScreen = true
 	v.ReportFocus = true
+	v.WindowTitle = m.windowTitle()
 	if m.mouseCaptured {
 		v.MouseMode = tea.MouseModeAllMotion
 	}

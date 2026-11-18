@@ -87,10 +87,8 @@ func (m Model) middleColumnHeader() string {
 // every real-world resource, leaving the title bar showing only the context.
 func (m Model) breadcrumb() string {
 	parts := []string{"lfk"}
-	if m.isUnionSentinel() {
-		parts = append(parts, "["+strings.Join(m.unionContexts, "+")+"]")
-	} else if m.nav.Context != "" && m.nav.Context != UnionContextSentinel {
-		parts = append(parts, m.nav.Context)
+	if label := m.contextLabel(); label != "" {
+		parts = append(parts, label)
 	}
 	if name := model.DisplayNameFor(m.nav.ResourceType); name != "" {
 		parts = append(parts, name)
